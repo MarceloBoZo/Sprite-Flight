@@ -8,6 +8,8 @@ public class Obstacle : MonoBehaviour
     public float maxSpeed = 280f;
     public float maxSpinSpeed = 10f;
 
+    public GameObject bounceEffect;
+
     Rigidbody2D rb;
 
     void Start()
@@ -24,4 +26,12 @@ public class Obstacle : MonoBehaviour
         rb.AddForce(randomDirection * randomSpeed);
         rb.AddTorque(randomTorque);
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+        {
+            Vector2 contactPoint = collision.GetContact(0).point;
+             GameObject bounceEffect = Instantiate(this.bounceEffect, contactPoint, Quaternion.identity);
+
+            Destroy(bounceEffect, 1f);
+        }
 }
